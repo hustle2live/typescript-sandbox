@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+const App = () => {
    let info: {
       officeId: number;
       isOpened: boolean;
@@ -50,24 +48,129 @@ function App() {
 
    console.log(someArr);
 
+   // ---------------T E S T --- T A S K------------------------
+
+   interface User {
+      name: string;
+      password: string;
+      age: number;
+      skills: string[];
+   }
+
+   interface LogDataUser {
+      log: (count: number) => number;
+   }
+
+   interface UserWithRole extends User, LogDataUser {
+      roleId: number;
+   }
+
+   let newUser: UserWithRole = {
+      name: 'newUser',
+      password: '1111111',
+      age: 33,
+      skills: ['ts', 'js', 'react'],
+      roleId: 22,
+      log(id) {
+         return id * 2;
+      },
+   };
+
+   // ------------------T E S T --- T A S K-----------------------
+   interface Payment {
+      sum: number;
+      from: number;
+      to: number;
+   }
+
+   const reqest1: Payment = {
+      sum: 10000,
+      from: 2,
+      to: 4,
+   };
+
+   // Ответ
+   enum ResponseStatus {
+      Success = 'success',
+      Rejected = 'failed',
+   }
+
+   interface DataSuccess {
+      databaseId: number;
+      sum: number;
+      from: number;
+      to: number;
+   }
+
+   interface DataFail {
+      errorMessage: string;
+      errorCode: number;
+   }
+
+   interface ResponseSuccess {
+      status: ResponseStatus.Success;
+      data: DataSuccess;
+   }
+
+   interface ResponseFailed {
+      status: ResponseStatus.Rejected;
+      data: DataFail;
+   }
+
+   const respSuccessFirst: Response = {
+      status: 'success',
+      data: {
+         databaseId: 567,
+         sum: 10000,
+         from: 2,
+         to: 4,
+      },
+   };
+
+   const respSuccessSecond: Response = {
+      status: 'failed',
+      data: {
+         errorMessage: 'Недостаточно средств',
+         errorCode: 4,
+      },
+   };
+   type RespData = DataSuccess | DataFail;
+   type Response = ResponseSuccess | ResponseFailed;
+
+   function isResponseSuccess(response: Response): response is ResponseSuccess {
+      if (response.status === ResponseStatus.Success) {
+         return true;
+      }
+      return false;
+   }
+
+   function getResponse(response: Response): number {
+      if (isResponseSuccess(response)) {
+         return response.data.databaseId;
+      }
+      return response.data.errorCode;
+   }
+
+   function isDataSuccess(data: RespData): data is DataSuccess {
+      return 'databaseId' in data;
+   }
+
+   function getDataFromResp(response: Response): number {
+      if (isDataSuccess(response.data)) {
+         return response.data.databaseId;
+      } else {
+         throw new Error(response.data.errorMessage);
+      }
+   }
+
+   // function get(): ResponseSuccess | ResponseFailed {}
+   //
+
    return (
-      <div className="App">
-         <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-               Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <a
-               className="App-link"
-               href="https://reactjs.org"
-               target="_blank"
-               rel="noopener noreferrer"
-            >
-               Learn React
-            </a>
-         </header>
+      <div>
+         <h2>Learn React</h2>
       </div>
    );
-}
+};
 
 export default App;
