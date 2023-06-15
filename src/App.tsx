@@ -165,6 +165,7 @@ const App = () => {
 
    // function get(): ResponseSuccess | ResponseFailed {}
    //
+   // ------------------T E S T --- T A S K-----------------------
 
    abstract class Logger {
       abstract log(m: string): void;
@@ -172,12 +173,11 @@ const App = () => {
       printDate(date: Date): void {
          this.log(date.toString());
       }
-   } 
+   }
 
    class MyLogger extends Logger {
       log(m: string): void {
          console.log(m);
-         // throw new Error('Method not implemented.');
       }
 
       logWithDate(m: string) {
@@ -188,6 +188,17 @@ const App = () => {
 
    const t = new MyLogger();
    t.logWithDate('hello TypeScript World');
+
+
+
+
+   // ------------------T E S T --- T A S K-----------------------
+
+
+
+
+
+
 
    return (
       <div>
