@@ -118,7 +118,7 @@ const App = () => {
    }
 
    const respSuccessFirst: Response = {
-      status: 'success',
+      status: ResponseStatus.Success,
       data: {
          databaseId: 567,
          sum: 10000,
@@ -128,7 +128,7 @@ const App = () => {
    };
 
    const respSuccessSecond: Response = {
-      status: 'failed',
+      status: ResponseStatus.Rejected,
       data: {
          errorMessage: 'Недостаточно средств',
          errorCode: 4,
@@ -165,6 +165,29 @@ const App = () => {
 
    // function get(): ResponseSuccess | ResponseFailed {}
    //
+
+   abstract class Logger {
+      abstract log(m: string): void;
+
+      printDate(date: Date): void {
+         this.log(date.toString());
+      }
+   } 
+
+   class MyLogger extends Logger {
+      log(m: string): void {
+         console.log(m);
+         // throw new Error('Method not implemented.');
+      }
+
+      logWithDate(m: string) {
+         this.log(m);
+         this.printDate(new Date());
+      }
+   }
+
+   const t = new MyLogger();
+   t.logWithDate('hello TypeScript World');
 
    return (
       <div>
