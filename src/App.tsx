@@ -189,16 +189,44 @@ const App = () => {
    const t = new MyLogger();
    t.logWithDate('hello TypeScript World');
 
-
-
-
    // ------------------T E S T --- T A S K-----------------------
 
+   const data = [
+      { id: 1, name: 'Vasya' },
+      { id: 3, name: 'Igor' },
+      { id: 2, name: 'Petya' },
+   ];
 
+   interface ItemWithId {
+      id: number;
+   }
 
+   // type ItemWithId<P, N> = {
+   //    id: P;
+   //    name: N;
+   // };
 
+   // class WithId {
+   //    id: number;
+   //    name: string;
+   // }
 
+   function sort<T extends ItemWithId>(
+      data: Array<T>,
+      type: 'asc' | 'desc' = 'asc',
+   ): Array<T> {
+      return data.sort((a, b) => {
+         switch (type) {
+            case 'asc':
+               return a.id - b.id;
+            case 'desc':
+               return b.id - a.id;
+         }
+      });
+   }
 
+   console.log([...sort(data, 'asc')]);
+   console.log([...sort(data, 'desc')]);
 
    return (
       <div>
